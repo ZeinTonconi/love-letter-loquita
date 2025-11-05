@@ -10,7 +10,8 @@ const LetterOpened = () => {
       try {
         const letters = await fetchLetters();
         if (letters.length > 0) {
-          setLetter(letters[Math.floor(Math.random() * letters.length)]);
+          // setLetter(letters[Math.floor(Math.random() * letters.length)]);
+          setLetter(letters[1])
         }
       } catch (err) {
         console.error("Error fetching letters:", err);
