@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { fetchLetters, type Letter } from "../api/letters";
 
+const startDate = new Date("2025-11-04");
+
 const LetterOpened = () => {
   const [letter, setLetter] = useState<Letter | null>(null);
 
@@ -10,8 +12,10 @@ const LetterOpened = () => {
       try {
         const letters = await fetchLetters();
         if (letters.length > 0) {
-          // setLetter(letters[Math.floor(Math.random() * letters.length)]);
-          setLetter(letters[1])
+          const today = new Date();
+          const diffDays = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+          const index = diffDays % letters.length;
+          setLetter(letters[index]);
         }
       } catch (err) {
         console.error("Error fetching letters:", err);
