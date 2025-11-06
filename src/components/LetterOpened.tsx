@@ -2,25 +2,40 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { fetchLetters, type Letter } from "../api/letters";
 
-const startDate = new Date("2025-11-04");
+// 📅 Fecha de inicio (en Bolivia)
+const startDate = new Date("2025-11-04T00:00:00-04:00");
 
 const LetterOpened = () => {
   const [letter, setLetter] = useState<Letter | null>(null);
+
+  // 🕓 Obtener "fecha actual" en horario de Bolivia (UTC-4)
+  const getBoliviaDate = () => {
+    const now = new Date();
+    // Convertir a UTC y restar 4 horas para obtener la hora boliviana
+    const boliviaOffsetMs = -4 * 60 * 60 * 1000;
+    const boliviaTime = new Date(now.getTime() + boliviaOffsetMs);
+    return new Date(boliviaTime.toDateString()); // solo la fecha (sin horas)
+  };
 
   useEffect(() => {
     const loadLetter = async () => {
       try {
         const letters = await fetchLetters();
         if (letters.length > 0) {
-          const today = new Date();
-          const diffDays = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-          const index = Math.min(diffDays, letters.length);
+          const today = getBoliviaDate();
+
+          const diffDays = Math.floor(
+            (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+          );
+
+          const index = Math.max(0, diffDays % letters.length);
           setLetter(letters[index]);
         }
       } catch (err) {
         console.error("Error fetching letters:", err);
       }
     };
+
     loadLetter();
   }, []);
 
@@ -71,10 +86,7 @@ const LetterOpened = () => {
               </p>
 
               <blockquote
-                className="
-                  italic text-2xl md:text-lg sm:text-base
-                  text-[#5b4636] mt-6
-                "
+                className="italic text-2xl md:text-lg sm:text-base text-[#5b4636] mt-6"
               >
                 “{letter.quote}”
               </blockquote>
