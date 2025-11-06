@@ -14,7 +14,7 @@ const LetterOpened = () => {
         if (letters.length > 0) {
           const today = new Date();
           const diffDays = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-          const index = diffDays % letters.length;
+          const index = Math.min(diffDays, letters.length-1);
           setLetter(letters[index]);
         }
       } catch (err) {
