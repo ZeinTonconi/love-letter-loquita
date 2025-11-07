@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { fetchLetters, type Letter } from "../api/letters";
 
 // 📅 Fecha de inicio (en Bolivia)
-const startDate = new Date("2025-11-04T00:00:00-04:00");
+const startDate = new Date("2025-11-03T00:00:00-04:00");
 
 const LetterOpened = () => {
   const [letter, setLetter] = useState<Letter | null>(null);
