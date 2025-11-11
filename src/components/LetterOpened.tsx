@@ -29,6 +29,7 @@ const LetterOpened = () => {
           );
 
           const index = Math.max(0, diffDays % letters.length);
+          console.log({id: index, number_of_letter: letters.length})
           setLetter(letters[index]);
         }
       } catch (err) {
