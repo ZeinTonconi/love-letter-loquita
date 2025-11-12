@@ -93,7 +93,7 @@ const LetterOpened = () => {
               ${currentIndex === 0 ? "opacity-40 cursor-not-allowed" : ""}
             `}
           >
-            ⬅️ Anterior
+            ← Anterior
           </button>
 
           <p className="text-[#3b2a1a] text-lg md:text-xl font-medium">
@@ -108,7 +108,7 @@ const LetterOpened = () => {
               ${currentIndex === letters.length - 1 ? "opacity-40 cursor-not-allowed" : ""}
             `}
           >
-            Siguiente ➡️
+            Siguiente →
           </button>
         </div>
 
