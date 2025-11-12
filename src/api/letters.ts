@@ -5,6 +5,7 @@ export interface Letter {
   title: string;
   content: string;
   quote: string;
+  date: string;
 }
 
 export const fetchLetters = async (): Promise<Letter[]> => {
